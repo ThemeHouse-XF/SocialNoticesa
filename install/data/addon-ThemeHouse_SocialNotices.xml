@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<addon addon_id="ThemeHouse_SocialNotices" title="[⌂] Social Notices" version_string="1.0.2a" version_id="1447094555" url="http://th.com/" install_callback_class="ThemeHouse_Install" install_callback_method="install" uninstall_callback_class="ThemeHouse_Install" uninstall_callback_method="uninstall">
+  <admin_navigation/>
+  <admin_permissions/>
+  <admin_style_properties/>
+  <admin_templates>
+    <template title="th_helper_criteria_page_socialnotices"><![CDATA[<xen:require css="helper_criteria.css" />
+
+<fieldset>
+<xen:controlunit label="{xen:phrase th_social_forums_socialnotices}:">
+<ul>		
+	<li><label>
+		<input type="checkbox" name="page_criteria[social_forums][rule]" value="social_forums" class="Disabler" id="pcrit_social_forums" {xen:checked $pageCriteria.social_forums} />
+		{xen:phrase th_page_is_within_social_forums_socialnotices}:</label>
+		<div class="criteriaQualifier" id="pcrit_social_forums_Disabler">
+			<xen:select name="page_criteria[social_forums][data][social_forum_ids]" size="12" multiple="true">
+				<xen:foreach loop="$pageCriteriaData.socialForums" value="$_criteriaSocialForum">
+					<xen:option value="{$_criteriaSocialForum.social_forum_id}"
+						selected="{$pageCriteria.social_forums.social_forum_ids} AND in_array({$_criteriaSocialForum.social_forum_id}, {$pageCriteria.social_forums.social_forum_ids})">
+							{$_criteriaSocialForum.title}</xen:option>
+				</xen:foreach>
+			</xen:select>			
+		</div>
+	</li>
+</ul>
+</xen:controlunit>
+</fieldset>]]></template>
+  </admin_templates>
+  <admin_template_modifications/>
+  <code_events/>
+  <code_event_listeners>
+    <listener event_id="controller_pre_dispatch" execute_order="10" callback_class="ThemeHouse_Listener_ControllerPreDispatch" callback_method="controllerPreDispatch" active="1" hint="" description=""/>
+    <listener event_id="criteria_page" execute_order="10" callback_class="ThemeHouse_SocialNotices_Listener_CriteriaPage" callback_method="criteriaPage" active="1" hint="" description=""/>
+    <listener event_id="init_dependencies" execute_order="10" callback_class="ThemeHouse_Listener_InitDependencies" callback_method="initDependencies" active="1" hint="" description=""/>
+    <listener event_id="load_class" execute_order="10" callback_class="ThemeHouse_SocialNotices_Listener_LoadClass" callback_method="loadClassController" active="0" hint="ThemeHouse_SocialGroups_ControllerPublic_SocialForum" description="ThemeHouse_SocialGroups_ControllerPublic_SocialForum (For XenForo 1.2 and above)" compatibility_switch="1"/>
+    <listener event_id="load_class" execute_order="10" callback_class="ThemeHouse_SocialNotices_Listener_LoadClass" callback_method="loadClassController" active="0" hint="XenForo_ControllerAdmin_Notice" description="XenForo_ControllerAdmin_Notice (For XenForo 1.2 and above)" compatibility_switch="1"/>
+    <listener event_id="load_class" execute_order="10" callback_class="ThemeHouse_SocialNotices_Listener_LoadClass" callback_method="loadClassDataWriter" active="0" hint="XenForo_DataWriter_Notice" description="XenForo_DataWriter_Notice (For XenForo 1.2 and above)" compatibility_switch="1"/>
+    <listener event_id="load_class" execute_order="10" callback_class="ThemeHouse_SocialNotices_Listener_LoadClass" callback_method="loadClassModel" active="0" hint="ThemeHouse_SocialGroups_Model_SocialForum" description="ThemeHouse_SocialGroups_Model_SocialForum (For XenForo 1.2 and above)" compatibility_switch="1"/>
+    <listener event_id="load_class" execute_order="10" callback_class="ThemeHouse_SocialNotices_Listener_LoadClass" callback_method="loadClassModel" active="0" hint="XenForo_Model_Notice" description="XenForo_Model_Notice (For XenForo 1.2 and above)" compatibility_switch="1"/>
+    <listener event_id="load_class_controller" execute_order="10" callback_class="ThemeHouse_SocialNotices_Listener_LoadClass" callback_method="loadClassController" active="1" hint="" description="(For XenForo 1.1 and below)" compatibility_switch="1"/>
+    <listener event_id="load_class_datawriter" execute_order="10" callback_class="ThemeHouse_SocialNotices_Listener_LoadClass" callback_method="loadClassDataWriter" active="1" hint="" description="(For XenForo 1.1 and below)" compatibility_switch="1"/>
+    <listener event_id="load_class_model" execute_order="10" callback_class="ThemeHouse_SocialNotices_Listener_LoadClass" callback_method="loadClassModel" active="1" hint="" description="(For XenForo 1.1 and below)" compatibility_switch="1"/>
+    <listener event_id="template_create" execute_order="10" callback_class="ThemeHouse_SocialNotices_Listener_TemplateCreate" callback_method="templateCreate" active="1" hint="" description="(For XenForo 1.1 and below)" compatibility_switch="1"/>
+    <listener event_id="template_hook" execute_order="10" callback_class="ThemeHouse_SocialNotices_Listener_TemplateHook" callback_method="templateHook" active="1" hint="" description="(For XenForo 1.1 and below)" compatibility_switch="1"/>
+    <listener event_id="template_post_render" execute_order="10" callback_class="ThemeHouse_SocialNotices_Listener_TemplatePostRender" callback_method="templatePostRender" active="1" hint="" description=""/>
+  </code_event_listeners>
+  <cron/>
+  <email_templates/>
+  <email_template_modifications/>
+  <optiongroups/>
+  <permissions>
+    <permission_groups/>
+    <permissions>
+      <permission permission_group_id="forum" permission_id="manageSocialNotices" permission_type="flag" default_value="unset" interface_group_id="thSocialGroupsModerator" display_order="1000"/>
+    </permissions>
+    <interface_groups/>
+  </permissions>
+  <phrases>
+    <phrase title="permission_forum_manageSocialNotices" version_id="1370030602" version_string="1.0.0"><![CDATA[Manage social notices]]></phrase>
+    <phrase title="th_manage_social_notices_socialnotices" version_id="0" version_string="1.0.0"><![CDATA[Manage Social Notices]]></phrase>
+    <phrase title="th_page_is_within_social_forums_socialnotices" version_id="0" version_string="1.0.0"><![CDATA[Page is Within Social Forums]]></phrase>
+    <phrase title="th_social_forums_socialnotices" version_id="0" version_string="1.0.0"><![CDATA[Social Forums]]></phrase>
+    <phrase title="th_social_forum_notices_socialnotices" version_id="0" version_string="1.0.0"><![CDATA[Social Forum Notices]]></phrase>
+  </phrases>
+  <route_prefixes/>
+  <style_properties/>
+  <templates>
+    <template title="th_social_forum_tools_socialnotices" version_id="0" version_string="1.0.0"><![CDATA[<xen:if is="{$canManageSocialNotices}">
+	<li><a href="{xen:link social-forums/notices, $socialForum}">{xen:phrase th_manage_social_notices_socialnotices}</a></li>
+</xen:if>]]></template>
+    <template title="th_social_notice_delete_socialnotices" version_id="1361748589" version_string="1.0.0"><![CDATA[<xen:title>{xen:phrase confirm_deletion_of_notice}: {$notice.title}</xen:title>
+<xen:h1>{xen:phrase confirm_deletion_of_notice}</xen:h1>
+
+<xen:navigation>
+	<xen:breadcrumb href="{xen:link 'social-forums/notices/edit', $socialForum, 'notice_id={$notice.notice_id}'}">{$notice.title}</xen:breadcrumb>
+</xen:navigation>
+
+<xen:require css="delete_confirmation.css" />
+
+<form action="{xen:link 'social-forums/notices/delete', $socialForum, 'notice_id={$notice.notice_id}'}" method="post" class="xenForm formOverlay deleteConfirmForm" id="delete-notice">
+	<p>{xen:phrase please_confirm_that_you_want_to_delete_following_notice}:</p>
+	<strong><a href="{xen:link 'social-forums/notices/edit', $socialForum, 'notice_id={$notice.notice_id}'}">{$notice.title}</a></strong>
+
+	<dl class="ctrlUnit submitUnit">
+		<dt></dt>
+		<dd>
+			<input type="submit" value="{xen:phrase delete_notice}" class="button primary" />
+		</dd>
+	</dl>
+
+	<input type="hidden" name="_xfConfirm" value="1" />
+	<input type="hidden" name="_xfToken" value="{$visitor.csrf_token_page}" />
+</form>]]></template>
+    <template title="th_social_notice_edit_socialnotices" version_id="1361754087" version_string="1.0.0"><![CDATA[<xen:title>{xen:if '{$notice.notice_id}', '{xen:phrase edit_notice}: {$notice.title}', '{xen:phrase create_new_notice}'}</xen:title>
+
+<xen:if is="{$notice.notice_id}">
+	<xen:navigation>
+		<xen:breadcrumb source="$nodeBreadCrumbs" />
+		<xen:breadcrumb href="{xen:link social-forums/notices, {$socialForum}}#{xen:helper listitemid, $notice.notice_id}">{$notice.title}</xen:breadcrumb>
+	</xen:navigation>
+<xen:else />
+	<xen:navigation>
+		<xen:breadcrumb source="$nodeBreadCrumbs" />
+		<xen:breadcrumb href="{xen:link social-forums/notices, {$socialForum}}">{xen:phrase notices}</xen:breadcrumb>
+	</xen:navigation>
+</xen:if>
+
+<xen:comment>
+<ul class="tabs Tabs" data-panes="#noticePanes > li">
+	<li class="active"><a>{xen:phrase notice_options}</a></li>
+	<li><a title="{xen:phrase display_notice_if_user}" class="Tooltip">{xen:phrase user_criteria}</a></li>
+	<li><a title="{xen:phrase display_notice_if_date}" class="Tooltip">{xen:phrase date_criteria}</a></li>
+	<li><a title="{xen:phrase display_notice_if_page}" class="Tooltip">{xen:phrase page_criteria}</a></li>
+	<li><a title="{xen:phrase display_notice_if_user}" class="Tooltip">{xen:phrase custom_userfield_criteria}</a></li>
+</ul>
+</xen:comment>
+
+<form action="{xen:link 'social-forums/notices/save', $socialForum, 'notice_id={$notice.notice_id}'}" method="post"
+	class="xenForm AutoValidator"
+	data-redirect="on">
+
+	<xen:comment>
+	<ul id="noticePanes">
+		<li>
+	</xen:comment>
+			<dl class="ctrlUnit">
+				<dt>
+					<label for="ctrl_title">{xen:phrase title}:</label>
+				</dt>
+				<dd>
+					<input type="text" name="title" value="{$notice.title}"  class="textCtrl" id="ctrl_title"
+						data-liveTitleTemplate="{xen:if {$notice.notice_id},
+							'{xen:phrase edit_notice}: <em>%s</em>',
+							'{xen:phrase create_new_notice}: <em>%s</em>'}" />
+					<p class="explain">{xen:phrase notice_title_explain}</p>
+				</dd>
+			</dl>
+			<dl class="ctrlUnit">
+				<dt>
+					<label for="ctrl_message">{xen:phrase message}:</label>
+					<dfn>{xen:phrase you_may_use_html}</dfn>
+				</dt>
+				<dd>
+					<textarea name="message" rows="2" class="textCtrl Elastic">{$notice.message}</textarea>
+					<p class="explain">{xen:phrase the_message_to_be_shown_when_the_display_criteria_are_met}</p>
+				</dd>
+			</dl>
+			<fieldset>				
+				<dl class="ctrlUnit">
+					<dt>
+						{xen:phrase options}:
+					</dt>
+					<dd>
+						<ul>
+							<li>
+								<label for="ctrl_wrap"><input type="checkbox" name="wrap" value="1" id="ctrl_wrap" {xen:checked $notice.wrap} /> {xen:phrase add_notice_content_wrapper}</label>
+								<p class="hint">{xen:phrase add_notice_content_wrapper_explain}</p>
+							</li>
+							<li>
+								<label for="ctrl_dismissible"><input type="checkbox" name="dismissible" value="1" id="ctrl_dismissible" {xen:checked $notice.dismissible} /> {xen:phrase notice_may_be_dismissed}</label>
+								<p class="hint">{xen:phrase users_may_hide_this_notice_when_they_have_read_it}</p>
+							</li>
+							<li>
+								<label for="ctrl_active"><input type="checkbox" name="active" value="1" id="ctrl_active" {xen:checked $notice.active} /> {xen:phrase notice_is_active}</label>
+								<p class="hint">{xen:phrase use_this_to_temporarily_disable_this_notice}</p>
+							</li>
+						</ul>
+					</dd>
+				</dl>
+			</fieldset>
+<xen:comment>
+
+
+				
+				<xen:spinboxunit label="{xen:phrase display_order}:" name="display_order" value="{$notice.display_order}" min="0" step="10" />				
+				</fieldset>
+</xen:comment>
+
+
+	<xen:comment>
+		</li>		
+		<li><xen:include template="helper_criteria_user" /></li>
+		<li><xen:include template="helper_criteria_user_date" /></li>
+		<li><xen:include template="helper_criteria_page" /></li>
+		<li><xen:include template="helper_criteria_user_field" /></li>
+	</ul>
+	</xen:comment>
+	
+	<dl class="ctrlUnit submitUnit">
+		<dt></dt>
+		<dd>
+			<input type="submit" value="{xen:phrase save_notice}" accesskey="s" class="button primary" />
+			<xen:if is="{$notice.notice_id}">
+				<a href="{xen:link social-forums/notices/delete, $socialForum, 'notice_id={$notice.notice_id}'}" type="button" class="button OverlayTrigger">{xen:phrase delete_notice}...</a>
+			</xen:if>
+		</dd>
+	</dl>
+	
+	<dl class="ctrlUnit">
+		<dt>{xen:phrase note}:</dt>
+		<dd>{xen:phrase notice_shows_with_no_criteria}</dd>
+	</dl>
+</form>]]></template>
+    <template title="th_social_notice_list_socialnotices" version_id="1361748589" version_string="1.0.0"><![CDATA[<xen:title>{xen:phrase th_social_forum_notices_socialnotices}</xen:title>
+
+<xen:navigation>
+	<xen:breadcrumb source="$nodeBreadCrumbs" />
+</xen:navigation>
+
+<xen:set var="$newNoticeButton"><a href="{xen:link 'social-forums/notices/add', $socialForum}" class="callToAction"><span>{xen:phrase create_new_notice}</span></a></xen:set>
+<xen:topctrl>{xen:raw $newNoticeButton}</xen:topctrl>
+
+<div class="sectionMain">
+<xen:if is="{$notices}">
+	<table class="dataTable noticesList">
+	<tbody>
+		<tr class="dataRow">
+			<th>{xen:phrase notices}</th>
+		</tr>
+		<xen:foreach loop="$notices" value="$notice">
+			<tr class="dataRow">
+				<td><a href="{xen:link 'social-forums/notices/edit', $socialForum, 'notice_id={$notice.notice_id}'}">{$notice.title}</a></td>
+			</tr>
+		</xen:foreach>
+	</tbody>
+	</table>
+<xen:else />
+	{xen:phrase no_notices_have_been_created_yet}
+</xen:if>
+</div>
+
+<div class="pageNavLinkGroup">
+	<div class="linkGroup">
+		{xen:raw $newNoticeButton}
+	</div>
+</div>]]></template>
+  </templates>
+  <public_template_modifications>
+    <modification template="footer" modification_key="th_copyrightNotice_socialNotices" description="Copyright notice for [⌂] Social Notices" execution_order="1" enabled="1" action="callback">
+      <find><![CDATA[/{xen:phrase (?:xenforo|extra)_copyright}/]]></find>
+      <replace><![CDATA[ThemeHouse_Listener_InitDependencies::copyrightNotice]]></replace>
+    </modification>
+    <modification template="th_social_forum_tools_socialgroups" modification_key="th_socialForumTools_socialNotices" description="Adds notices links to social forum tools drop-down menu." execution_order="10" enabled="1" action="preg_replace">
+      <find><![CDATA[#(<xen:hook name="th_social_forum_tools_socialgroups">.*)(</xen:hook>)#Us]]></find>
+      <replace><![CDATA[${1}
+<xen:include template="th_social_forum_tools_socialnotices" />
+${2}]]></replace>
+    </modification>
+  </public_template_modifications>
+  <bb_code_media_sites/>
+  <bb_codes/>
+</addon>
